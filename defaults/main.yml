@@ -1,0 +1,103 @@
+# Please enter following parameters before system hardening
+# Section 01
+# Section 01 Level 1
+partitioning: True
+
+# Section 01 Level 3
+use_aide: True
+
+# Section 01 Level 4
+set_bootloader_password: False
+grub_superuser: root
+# Grub Bootloader PBKDF2 Password (use grub-mkpasswd-pbkdf2 to generate): "password"
+root_password_grub: grub.pbkdf2.sha512.10000.A7D6E38A0E208FD0F621416625E6BEC4BD503CB9C12426C6244A3E23C233B891F21C523DE2C84F53A97FF8AC132E12375747C2EC5EBAB44B728221E502484BEF.A26BB3A7D4CD2208F70A46A8F2C19EB80AC0B73639DB6549A89A5DDBF58645A43D5041964CF2E6B1C82ED22DDF827E6A9F587E8439F0E4F9F043142417414253
+
+# Default root password: password
+root_password: 7Uy&k!4%n5E==5cvEWc5*aJXR3frDu@2xUw^UA&6yAk_LCbrrNWfLSX&-Vup-*vJPHw_RYz%&WCn6EHraUw2nTshQk7S$a99HjtKbcDW_s
+# Section 01 Level 5
+# Set this flag to randomize virtual memory region placement.
+enable_aslr: True
+
+# Section 01 Level 6
+enable_selinux: False
+# Set this flag to use AppArmor. It is useful to disable it when the system does not support the kernel module.
+use_apparmor: True
+selinux_apparmor: apparmor
+
+# Section 01 Level 8
+# The execution is faster without packages upgrade.
+apt_upgrade: False
+# Only update apt cache if older than this value (in seconds)
+apt_cache_valid_time: 3600
+
+
+# Section 02
+# Section 02 Level 2
+ntp_package: chrony
+# We focus a server installation, but we may be accept some desktops.
+remove_xserver: True
+
+# Section 03
+# Section 03 Level 1
+# A Docker host will need this set to 1 in order to route container traffic.
+# (https://docs.docker.com/engine/userguide/networking/default_network/container-communication)
+net_ipv4_ip_forward: 0
+
+# Section 03 Level 2
+# Set this flag if the kernel has TCP syncookies support.
+enable_tcp_syncookies: True
+
+# Section 03 Level 3
+# Disable all ipv6 interfaces. Suggested if the protocol is not used.
+disable_ipv6: True
+
+# Section 03 Level 4
+enable_hosts_allow: False
+enable_hosts_deny: False
+
+# Section 03 Level 6
+activate_iptables: False
+iptables_rules_file: /etc/iptables/rules.v4
+firewall_policy_drop: True
+
+# Section 03 Level 7
+disable_wifi: True
+
+# Section 4
+# Section 04 Level 1
+enable_auditd: True
+# Set auditd logs file size in /var/log/auditd
+max_log_file_auditd: 200
+
+# Section 4 Level 2
+set_rsyslog_remote: False
+syslog_package: rsyslog
+# Set rsyslog's logs remote server address to send logs.
+# WARNING: Update the IP address without localhost address or rsyslog will hit 100% of the CPU usage
+remote_logs_host_address: 192.168.112.1
+
+# Modify the kernel behavior to disallow dump of suid binaries.
+restrict_core_dumps: True
+
+# Section 05
+# Section 05 Level 2
+permit_root_login: no
+sshd_allow_users: sshallowed
+sshd_allow_groups: sshallowed
+sshd_deny_users: sshdenied
+sshd_deny_groups: sshusersdeny
+
+# Section 06
+
+# Section 06 Level 1
+dpkg_verify: False
+
+# Section 06 Level 2
+# This variable defines if accounts without password have to be locked
+lock_shadow_accounts: False
+# The modification of user homes may lock users and set the system in an errored state. Set to false if one of the user is using / as home.
+modify_user_homes: True
+
+# Section 06 Level 5 | Section 02 Level 2
+# Default ntp server for when none-already exists.
+ntp_server: 0.amazon.pool.ntp.org
